@@ -21,7 +21,7 @@ Methods:
 Types:
 
 ```python
-from waityapi.types import QueueHistory, QueueStatus, Store, WaitTime, StoreListResponse
+from waityapi.types import QueueHistory, QueueStatus, Store, StoreListResponse, WaitTime
 ```
 
 Methods:
@@ -37,13 +37,20 @@ Methods:
 Types:
 
 ```python
-from waityapi.types import APIKey, CreateRequest, CreateResponse, ListResponse, UpdateRequest, Usage
+from waityapi.types import (
+    APIKey,
+    APIKeyListResponse,
+    CreateRequest,
+    CreateResponse,
+    UpdateRequest,
+    Usage,
+)
 ```
 
 Methods:
 
 - <code title="post /manager/c/{companyId}/api-keys">client.api_keys.<a href="./src/waityapi/resources/api_keys.py">create</a>(company_id, \*\*<a href="src/waityapi/types/api_key_create_params.py">params</a>) -> <a href="./src/waityapi/types/create_response.py">CreateResponse</a></code>
 - <code title="patch /manager/c/{companyId}/api-keys/{keyId}">client.api_keys.<a href="./src/waityapi/resources/api_keys.py">update</a>(key_id, \*, company_id, \*\*<a href="src/waityapi/types/api_key_update_params.py">params</a>) -> <a href="./src/waityapi/types/api_key.py">APIKey</a></code>
-- <code title="get /manager/c/{companyId}/api-keys">client.api_keys.<a href="./src/waityapi/resources/api_keys.py">list</a>(company_id) -> <a href="./src/waityapi/types/list_response.py">ListResponse</a></code>
+- <code title="get /manager/c/{companyId}/api-keys">client.api_keys.<a href="./src/waityapi/resources/api_keys.py">list</a>(company_id) -> <a href="./src/waityapi/types/api_key_list_response.py">APIKeyListResponse</a></code>
 - <code title="delete /manager/c/{companyId}/api-keys/{keyId}">client.api_keys.<a href="./src/waityapi/resources/api_keys.py">delete</a>(key_id, \*, company_id) -> None</code>
 - <code title="get /manager/c/{companyId}/api-keys/{keyId}/usage">client.api_keys.<a href="./src/waityapi/resources/api_keys.py">usage</a>(key_id, \*, company_id) -> <a href="./src/waityapi/types/usage.py">Usage</a></code>
