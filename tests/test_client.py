@@ -23,7 +23,7 @@ from waityapi import Waity, AsyncWaity, APIResponseValidationError
 from waityapi._types import Omit
 from waityapi._utils import asyncify
 from waityapi._models import BaseModel, FinalRequestOptions
-from waityapi._exceptions import APIStatusError, APITimeoutError, APIResponseValidationError
+from waityapi._exceptions import WaityError, APIStatusError, APITimeoutError, APIResponseValidationError
 from waityapi._base_client import (
     DEFAULT_TIMEOUT,
     HTTPX_DEFAULT_TIMEOUT,
@@ -396,6 +396,16 @@ class TestWaity:
 
         test_client.close()
         test_client2.close()
+
+    def test_validate_headers(self) -> None:
+        client = Waity(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
+        assert request.headers.get("X-API-Key") == api_key
+
+        with pytest.raises(WaityError):
+            with update_env(**{"WAITY_API_KEY": Omit()}):
+                client2 = Waity(base_url=base_url, api_key=None, _strict_response_validation=True)
+            _ = client2
 
     def test_default_query_option(self) -> None:
         client = Waity(
@@ -1267,6 +1277,16 @@ class TestAsyncWaity:
 
         await test_client.close()
         await test_client2.close()
+
+    def test_validate_headers(self) -> None:
+        client = AsyncWaity(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
+        assert request.headers.get("X-API-Key") == api_key
+
+        with pytest.raises(WaityError):
+            with update_env(**{"WAITY_API_KEY": Omit()}):
+                client2 = AsyncWaity(base_url=base_url, api_key=None, _strict_response_validation=True)
+            _ = client2
 
     async def test_default_query_option(self) -> None:
         client = AsyncWaity(
