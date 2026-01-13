@@ -9,7 +9,12 @@ import pytest
 
 from waityapi import Waity, AsyncWaity
 from tests.utils import assert_matches_type
-from waityapi.types import Usage, APIKey, ListResponse, CreateResponse
+from waityapi.types import (
+    Usage,
+    APIKey,
+    CreateResponse,
+    APIKeyListResponse,
+)
 from waityapi._utils import parse_datetime
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
@@ -151,7 +156,7 @@ class TestAPIKeys:
         api_key = client.api_keys.list(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(ListResponse, api_key, path=["response"])
+        assert_matches_type(APIKeyListResponse, api_key, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -163,7 +168,7 @@ class TestAPIKeys:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         api_key = response.parse()
-        assert_matches_type(ListResponse, api_key, path=["response"])
+        assert_matches_type(APIKeyListResponse, api_key, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -175,7 +180,7 @@ class TestAPIKeys:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             api_key = response.parse()
-            assert_matches_type(ListResponse, api_key, path=["response"])
+            assert_matches_type(APIKeyListResponse, api_key, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -430,7 +435,7 @@ class TestAsyncAPIKeys:
         api_key = await async_client.api_keys.list(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(ListResponse, api_key, path=["response"])
+        assert_matches_type(APIKeyListResponse, api_key, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -442,7 +447,7 @@ class TestAsyncAPIKeys:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         api_key = await response.parse()
-        assert_matches_type(ListResponse, api_key, path=["response"])
+        assert_matches_type(APIKeyListResponse, api_key, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -454,7 +459,7 @@ class TestAsyncAPIKeys:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             api_key = await response.parse()
-            assert_matches_type(ListResponse, api_key, path=["response"])
+            assert_matches_type(APIKeyListResponse, api_key, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

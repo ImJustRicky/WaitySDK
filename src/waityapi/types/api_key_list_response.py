@@ -5,8 +5,8 @@ from typing import List
 from .api_key import APIKey
 from .._models import BaseModel
 
-__all__ = ["ListResponse"]
+__all__ = ["APIKeyListResponse"]
 
 
-class ListResponse(BaseModel):
+class APIKeyListResponse(BaseModel):
     api_keys: List[APIKey]
