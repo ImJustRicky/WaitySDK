@@ -10,7 +10,7 @@ import httpx
 import pytest
 from pytest_asyncio import is_async_test
 
-from waityapi import Waityapi, AsyncWaityapi, DefaultAioHttpClient
+from waityapi import Waity, AsyncWaity, DefaultAioHttpClient
 from waityapi._utils import is_dict
 
 if TYPE_CHECKING:
@@ -49,17 +49,17 @@ api_key = "My API Key"
 
 
 @pytest.fixture(scope="session")
-def client(request: FixtureRequest) -> Iterator[Waityapi]:
+def client(request: FixtureRequest) -> Iterator[Waity]:
     strict = getattr(request, "param", True)
     if not isinstance(strict, bool):
         raise TypeError(f"Unexpected fixture parameter type {type(strict)}, expected {bool}")
 
-    with Waityapi(base_url=base_url, api_key=api_key, _strict_response_validation=strict) as client:
+    with Waity(base_url=base_url, api_key=api_key, _strict_response_validation=strict) as client:
         yield client
 
 
 @pytest.fixture(scope="session")
-async def async_client(request: FixtureRequest) -> AsyncIterator[AsyncWaityapi]:
+async def async_client(request: FixtureRequest) -> AsyncIterator[AsyncWaity]:
     param = getattr(request, "param", True)
 
     # defaults
@@ -78,7 +78,7 @@ async def async_client(request: FixtureRequest) -> AsyncIterator[AsyncWaityapi]:
     else:
         raise TypeError(f"Unexpected fixture parameter type {type(param)}, expected bool or dict")
 
-    async with AsyncWaityapi(
+    async with AsyncWaity(
         base_url=base_url, api_key=api_key, _strict_response_validation=strict, http_client=http_client
     ) as client:
         yield client

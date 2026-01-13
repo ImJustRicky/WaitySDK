@@ -16,7 +16,11 @@ before making any information public.
 ## Reporting Non-SDK Related Security Issues
 
 If you encounter security issues that are not directly related to SDKs but pertain to the services
-or products provided by Waityapi, please follow the respective company's security reporting guidelines.
+or products provided by Waity, please follow the respective company's security reporting guidelines.
+
+### Waity Terms and Policies
+
+Please contact api-support@waity.ai for any questions or concerns regarding the security of our services.
 
 ---
 

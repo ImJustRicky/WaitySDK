@@ -1,11 +1,11 @@
 [project]
 name = "waityapi"
 version = "0.0.1"
-description = "The official Python library for the waityapi API"
+description = "The official Python library for the waity API"
 dynamic = ["readme"]
 license = "Apache-2.0"
 authors = [
-{ name = "Waityapi", email = "" },
+{ name = "Waity", email = "api-support@waity.ai" },
 ]
 
 dependencies = [

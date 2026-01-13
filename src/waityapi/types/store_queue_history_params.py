@@ -4,10 +4,9 @@ from __future__ import annotations
 
 from typing_extensions import TypedDict
 
-__all__ = ["CategoryParam"]
+__all__ = ["StoreQueueHistoryParams"]
 
 
-class CategoryParam(TypedDict, total=False):
-    id: int
-
-    name: str
+class StoreQueueHistoryParams(TypedDict, total=False):
+    days: int
+    """Number of days of history (max 30)."""
