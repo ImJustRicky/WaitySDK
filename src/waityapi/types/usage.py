@@ -3,6 +3,6 @@
 from typing import Dict
 from typing_extensions import TypeAlias
 
-__all__ = ["StoreListInventoryResponse"]
+__all__ = ["Usage"]
 
-StoreListInventoryResponse: TypeAlias = Dict[str, int]
+Usage: TypeAlias = Dict[str, object]

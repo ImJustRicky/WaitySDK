@@ -18,11 +18,11 @@ __all__ = [
 ]
 
 
-class WaityapiError(Exception):
+class WaityError(Exception):
     pass
 
 
-class APIError(WaityapiError):
+class APIError(WaityError):
     message: str
     request: httpx.Request
 

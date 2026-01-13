@@ -23,7 +23,7 @@ from ._utils import is_given, get_async_library
 from ._compat import cached_property
 from ._version import __version__
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
-from ._exceptions import WaityapiError, APIStatusError
+from ._exceptions import WaityError, APIStatusError
 from ._base_client import (
     DEFAULT_MAX_RETRIES,
     SyncAPIClient,
@@ -31,24 +31,15 @@ from ._base_client import (
 )
 
 if TYPE_CHECKING:
-    from .resources import pets, store, users
-    from .resources.pets import PetsResource, AsyncPetsResource
-    from .resources.users import UsersResource, AsyncUsersResource
-    from .resources.store.store import StoreResource, AsyncStoreResource
+    from .resources import health, stores, api_keys
+    from .resources.health import HealthResource, AsyncHealthResource
+    from .resources.stores import StoresResource, AsyncStoresResource
+    from .resources.api_keys import APIKeysResource, AsyncAPIKeysResource
 
-__all__ = [
-    "Timeout",
-    "Transport",
-    "ProxiesTypes",
-    "RequestOptions",
-    "Waityapi",
-    "AsyncWaityapi",
-    "Client",
-    "AsyncClient",
-]
+__all__ = ["Timeout", "Transport", "ProxiesTypes", "RequestOptions", "Waity", "AsyncWaity", "Client", "AsyncClient"]
 
 
-class Waityapi(SyncAPIClient):
+class Waity(SyncAPIClient):
     # client options
     api_key: str
 
@@ -75,22 +66,22 @@ class Waityapi(SyncAPIClient):
         # part of our public interface in the future.
         _strict_response_validation: bool = False,
     ) -> None:
-        """Construct a new synchronous Waityapi client instance.
+        """Construct a new synchronous Waity client instance.
 
-        This automatically infers the `api_key` argument from the `PETSTORE_API_KEY` environment variable if it is not provided.
+        This automatically infers the `api_key` argument from the `WAITY_API_KEY` environment variable if it is not provided.
         """
         if api_key is None:
-            api_key = os.environ.get("PETSTORE_API_KEY")
+            api_key = os.environ.get("WAITY_API_KEY")
         if api_key is None:
-            raise WaityapiError(
-                "The api_key client option must be set either by passing api_key to the client or by setting the PETSTORE_API_KEY environment variable"
+            raise WaityError(
+                "The api_key client option must be set either by passing api_key to the client or by setting the WAITY_API_KEY environment variable"
             )
         self.api_key = api_key
 
         if base_url is None:
-            base_url = os.environ.get("WAITYAPI_BASE_URL")
+            base_url = os.environ.get("WAITY_BASE_URL")
         if base_url is None:
-            base_url = f"https://petstore3.swagger.io/api/v3"
+            base_url = f"https://api.waity.ai/v1"
 
         super().__init__(
             version=__version__,
@@ -104,41 +95,35 @@ class Waityapi(SyncAPIClient):
         )
 
     @cached_property
-    def pets(self) -> PetsResource:
-        from .resources.pets import PetsResource
+    def health(self) -> HealthResource:
+        from .resources.health import HealthResource
 
-        return PetsResource(self)
-
-    @cached_property
-    def store(self) -> StoreResource:
-        from .resources.store import StoreResource
-
-        return StoreResource(self)
+        return HealthResource(self)
 
     @cached_property
-    def users(self) -> UsersResource:
-        from .resources.users import UsersResource
+    def stores(self) -> StoresResource:
+        from .resources.stores import StoresResource
 
-        return UsersResource(self)
-
-    @cached_property
-    def with_raw_response(self) -> WaityapiWithRawResponse:
-        return WaityapiWithRawResponse(self)
+        return StoresResource(self)
 
     @cached_property
-    def with_streaming_response(self) -> WaityapiWithStreamedResponse:
-        return WaityapiWithStreamedResponse(self)
+    def api_keys(self) -> APIKeysResource:
+        from .resources.api_keys import APIKeysResource
+
+        return APIKeysResource(self)
+
+    @cached_property
+    def with_raw_response(self) -> WaityWithRawResponse:
+        return WaityWithRawResponse(self)
+
+    @cached_property
+    def with_streaming_response(self) -> WaityWithStreamedResponse:
+        return WaityWithStreamedResponse(self)
 
     @property
     @override
     def qs(self) -> Querystring:
         return Querystring(array_format="comma")
-
-    @property
-    @override
-    def auth_headers(self) -> dict[str, str]:
-        api_key = self.api_key
-        return {"api_key": api_key}
 
     @property
     @override
@@ -234,7 +219,7 @@ class Waityapi(SyncAPIClient):
         return APIStatusError(err_msg, response=response, body=body)
 
 
-class AsyncWaityapi(AsyncAPIClient):
+class AsyncWaity(AsyncAPIClient):
     # client options
     api_key: str
 
@@ -261,22 +246,22 @@ class AsyncWaityapi(AsyncAPIClient):
         # part of our public interface in the future.
         _strict_response_validation: bool = False,
     ) -> None:
-        """Construct a new async AsyncWaityapi client instance.
+        """Construct a new async AsyncWaity client instance.
 
-        This automatically infers the `api_key` argument from the `PETSTORE_API_KEY` environment variable if it is not provided.
+        This automatically infers the `api_key` argument from the `WAITY_API_KEY` environment variable if it is not provided.
         """
         if api_key is None:
-            api_key = os.environ.get("PETSTORE_API_KEY")
+            api_key = os.environ.get("WAITY_API_KEY")
         if api_key is None:
-            raise WaityapiError(
-                "The api_key client option must be set either by passing api_key to the client or by setting the PETSTORE_API_KEY environment variable"
+            raise WaityError(
+                "The api_key client option must be set either by passing api_key to the client or by setting the WAITY_API_KEY environment variable"
             )
         self.api_key = api_key
 
         if base_url is None:
-            base_url = os.environ.get("WAITYAPI_BASE_URL")
+            base_url = os.environ.get("WAITY_BASE_URL")
         if base_url is None:
-            base_url = f"https://petstore3.swagger.io/api/v3"
+            base_url = f"https://api.waity.ai/v1"
 
         super().__init__(
             version=__version__,
@@ -290,41 +275,35 @@ class AsyncWaityapi(AsyncAPIClient):
         )
 
     @cached_property
-    def pets(self) -> AsyncPetsResource:
-        from .resources.pets import AsyncPetsResource
+    def health(self) -> AsyncHealthResource:
+        from .resources.health import AsyncHealthResource
 
-        return AsyncPetsResource(self)
-
-    @cached_property
-    def store(self) -> AsyncStoreResource:
-        from .resources.store import AsyncStoreResource
-
-        return AsyncStoreResource(self)
+        return AsyncHealthResource(self)
 
     @cached_property
-    def users(self) -> AsyncUsersResource:
-        from .resources.users import AsyncUsersResource
+    def stores(self) -> AsyncStoresResource:
+        from .resources.stores import AsyncStoresResource
 
-        return AsyncUsersResource(self)
-
-    @cached_property
-    def with_raw_response(self) -> AsyncWaityapiWithRawResponse:
-        return AsyncWaityapiWithRawResponse(self)
+        return AsyncStoresResource(self)
 
     @cached_property
-    def with_streaming_response(self) -> AsyncWaityapiWithStreamedResponse:
-        return AsyncWaityapiWithStreamedResponse(self)
+    def api_keys(self) -> AsyncAPIKeysResource:
+        from .resources.api_keys import AsyncAPIKeysResource
+
+        return AsyncAPIKeysResource(self)
+
+    @cached_property
+    def with_raw_response(self) -> AsyncWaityWithRawResponse:
+        return AsyncWaityWithRawResponse(self)
+
+    @cached_property
+    def with_streaming_response(self) -> AsyncWaityWithStreamedResponse:
+        return AsyncWaityWithStreamedResponse(self)
 
     @property
     @override
     def qs(self) -> Querystring:
         return Querystring(array_format="comma")
-
-    @property
-    @override
-    def auth_headers(self) -> dict[str, str]:
-        api_key = self.api_key
-        return {"api_key": api_key}
 
     @property
     @override
@@ -420,106 +399,106 @@ class AsyncWaityapi(AsyncAPIClient):
         return APIStatusError(err_msg, response=response, body=body)
 
 
-class WaityapiWithRawResponse:
-    _client: Waityapi
+class WaityWithRawResponse:
+    _client: Waity
 
-    def __init__(self, client: Waityapi) -> None:
+    def __init__(self, client: Waity) -> None:
         self._client = client
 
     @cached_property
-    def pets(self) -> pets.PetsResourceWithRawResponse:
-        from .resources.pets import PetsResourceWithRawResponse
+    def health(self) -> health.HealthResourceWithRawResponse:
+        from .resources.health import HealthResourceWithRawResponse
 
-        return PetsResourceWithRawResponse(self._client.pets)
-
-    @cached_property
-    def store(self) -> store.StoreResourceWithRawResponse:
-        from .resources.store import StoreResourceWithRawResponse
-
-        return StoreResourceWithRawResponse(self._client.store)
+        return HealthResourceWithRawResponse(self._client.health)
 
     @cached_property
-    def users(self) -> users.UsersResourceWithRawResponse:
-        from .resources.users import UsersResourceWithRawResponse
+    def stores(self) -> stores.StoresResourceWithRawResponse:
+        from .resources.stores import StoresResourceWithRawResponse
 
-        return UsersResourceWithRawResponse(self._client.users)
+        return StoresResourceWithRawResponse(self._client.stores)
+
+    @cached_property
+    def api_keys(self) -> api_keys.APIKeysResourceWithRawResponse:
+        from .resources.api_keys import APIKeysResourceWithRawResponse
+
+        return APIKeysResourceWithRawResponse(self._client.api_keys)
 
 
-class AsyncWaityapiWithRawResponse:
-    _client: AsyncWaityapi
+class AsyncWaityWithRawResponse:
+    _client: AsyncWaity
 
-    def __init__(self, client: AsyncWaityapi) -> None:
+    def __init__(self, client: AsyncWaity) -> None:
         self._client = client
 
     @cached_property
-    def pets(self) -> pets.AsyncPetsResourceWithRawResponse:
-        from .resources.pets import AsyncPetsResourceWithRawResponse
+    def health(self) -> health.AsyncHealthResourceWithRawResponse:
+        from .resources.health import AsyncHealthResourceWithRawResponse
 
-        return AsyncPetsResourceWithRawResponse(self._client.pets)
-
-    @cached_property
-    def store(self) -> store.AsyncStoreResourceWithRawResponse:
-        from .resources.store import AsyncStoreResourceWithRawResponse
-
-        return AsyncStoreResourceWithRawResponse(self._client.store)
+        return AsyncHealthResourceWithRawResponse(self._client.health)
 
     @cached_property
-    def users(self) -> users.AsyncUsersResourceWithRawResponse:
-        from .resources.users import AsyncUsersResourceWithRawResponse
+    def stores(self) -> stores.AsyncStoresResourceWithRawResponse:
+        from .resources.stores import AsyncStoresResourceWithRawResponse
 
-        return AsyncUsersResourceWithRawResponse(self._client.users)
+        return AsyncStoresResourceWithRawResponse(self._client.stores)
+
+    @cached_property
+    def api_keys(self) -> api_keys.AsyncAPIKeysResourceWithRawResponse:
+        from .resources.api_keys import AsyncAPIKeysResourceWithRawResponse
+
+        return AsyncAPIKeysResourceWithRawResponse(self._client.api_keys)
 
 
-class WaityapiWithStreamedResponse:
-    _client: Waityapi
+class WaityWithStreamedResponse:
+    _client: Waity
 
-    def __init__(self, client: Waityapi) -> None:
+    def __init__(self, client: Waity) -> None:
         self._client = client
 
     @cached_property
-    def pets(self) -> pets.PetsResourceWithStreamingResponse:
-        from .resources.pets import PetsResourceWithStreamingResponse
+    def health(self) -> health.HealthResourceWithStreamingResponse:
+        from .resources.health import HealthResourceWithStreamingResponse
 
-        return PetsResourceWithStreamingResponse(self._client.pets)
-
-    @cached_property
-    def store(self) -> store.StoreResourceWithStreamingResponse:
-        from .resources.store import StoreResourceWithStreamingResponse
-
-        return StoreResourceWithStreamingResponse(self._client.store)
+        return HealthResourceWithStreamingResponse(self._client.health)
 
     @cached_property
-    def users(self) -> users.UsersResourceWithStreamingResponse:
-        from .resources.users import UsersResourceWithStreamingResponse
+    def stores(self) -> stores.StoresResourceWithStreamingResponse:
+        from .resources.stores import StoresResourceWithStreamingResponse
 
-        return UsersResourceWithStreamingResponse(self._client.users)
+        return StoresResourceWithStreamingResponse(self._client.stores)
+
+    @cached_property
+    def api_keys(self) -> api_keys.APIKeysResourceWithStreamingResponse:
+        from .resources.api_keys import APIKeysResourceWithStreamingResponse
+
+        return APIKeysResourceWithStreamingResponse(self._client.api_keys)
 
 
-class AsyncWaityapiWithStreamedResponse:
-    _client: AsyncWaityapi
+class AsyncWaityWithStreamedResponse:
+    _client: AsyncWaity
 
-    def __init__(self, client: AsyncWaityapi) -> None:
+    def __init__(self, client: AsyncWaity) -> None:
         self._client = client
 
     @cached_property
-    def pets(self) -> pets.AsyncPetsResourceWithStreamingResponse:
-        from .resources.pets import AsyncPetsResourceWithStreamingResponse
+    def health(self) -> health.AsyncHealthResourceWithStreamingResponse:
+        from .resources.health import AsyncHealthResourceWithStreamingResponse
 
-        return AsyncPetsResourceWithStreamingResponse(self._client.pets)
-
-    @cached_property
-    def store(self) -> store.AsyncStoreResourceWithStreamingResponse:
-        from .resources.store import AsyncStoreResourceWithStreamingResponse
-
-        return AsyncStoreResourceWithStreamingResponse(self._client.store)
+        return AsyncHealthResourceWithStreamingResponse(self._client.health)
 
     @cached_property
-    def users(self) -> users.AsyncUsersResourceWithStreamingResponse:
-        from .resources.users import AsyncUsersResourceWithStreamingResponse
+    def stores(self) -> stores.AsyncStoresResourceWithStreamingResponse:
+        from .resources.stores import AsyncStoresResourceWithStreamingResponse
 
-        return AsyncUsersResourceWithStreamingResponse(self._client.users)
+        return AsyncStoresResourceWithStreamingResponse(self._client.stores)
+
+    @cached_property
+    def api_keys(self) -> api_keys.AsyncAPIKeysResourceWithStreamingResponse:
+        from .resources.api_keys import AsyncAPIKeysResourceWithStreamingResponse
+
+        return AsyncAPIKeysResourceWithStreamingResponse(self._client.api_keys)
 
 
-Client = Waityapi
+Client = Waity
 
-AsyncClient = AsyncWaityapi
+AsyncClient = AsyncWaity

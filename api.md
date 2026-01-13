@@ -1,68 +1,49 @@
 # Shared Types
 
 ```python
-from waityapi.types import Order
+from waityapi.types import ErrorResponse
 ```
 
-# Pets
+# Health
 
 Types:
 
 ```python
-from waityapi.types import (
-    Category,
-    Pet,
-    PetFindByStatusResponse,
-    PetFindByTagsResponse,
-    PetUploadImageResponse,
-)
+from waityapi.types import HealthCheckResponse
 ```
 
 Methods:
 
-- <code title="post /pet">client.pets.<a href="./src/waityapi/resources/pets.py">create</a>(\*\*<a href="src/waityapi/types/pet_create_params.py">params</a>) -> <a href="./src/waityapi/types/pet.py">Pet</a></code>
-- <code title="get /pet/{petId}">client.pets.<a href="./src/waityapi/resources/pets.py">retrieve</a>(pet_id) -> <a href="./src/waityapi/types/pet.py">Pet</a></code>
-- <code title="put /pet">client.pets.<a href="./src/waityapi/resources/pets.py">update</a>(\*\*<a href="src/waityapi/types/pet_update_params.py">params</a>) -> <a href="./src/waityapi/types/pet.py">Pet</a></code>
-- <code title="delete /pet/{petId}">client.pets.<a href="./src/waityapi/resources/pets.py">delete</a>(pet_id) -> None</code>
-- <code title="get /pet/findByStatus">client.pets.<a href="./src/waityapi/resources/pets.py">find_by_status</a>(\*\*<a href="src/waityapi/types/pet_find_by_status_params.py">params</a>) -> <a href="./src/waityapi/types/pet_find_by_status_response.py">PetFindByStatusResponse</a></code>
-- <code title="get /pet/findByTags">client.pets.<a href="./src/waityapi/resources/pets.py">find_by_tags</a>(\*\*<a href="src/waityapi/types/pet_find_by_tags_params.py">params</a>) -> <a href="./src/waityapi/types/pet_find_by_tags_response.py">PetFindByTagsResponse</a></code>
-- <code title="post /pet/{petId}">client.pets.<a href="./src/waityapi/resources/pets.py">update_by_id</a>(pet_id, \*\*<a href="src/waityapi/types/pet_update_by_id_params.py">params</a>) -> None</code>
-- <code title="post /pet/{petId}/uploadImage">client.pets.<a href="./src/waityapi/resources/pets.py">upload_image</a>(pet_id, image, \*\*<a href="src/waityapi/types/pet_upload_image_params.py">params</a>) -> <a href="./src/waityapi/types/pet_upload_image_response.py">PetUploadImageResponse</a></code>
+- <code title="get /health">client.health.<a href="./src/waityapi/resources/health.py">check</a>() -> <a href="./src/waityapi/types/health_check_response.py">HealthCheckResponse</a></code>
 
-# Store
+# Stores
 
 Types:
 
 ```python
-from waityapi.types import StoreListInventoryResponse
+from waityapi.types import QueueHistory, QueueStatus, Store, WaitTime, StoreListResponse
 ```
 
 Methods:
 
-- <code title="get /store/inventory">client.store.<a href="./src/waityapi/resources/store/store.py">list_inventory</a>() -> <a href="./src/waityapi/types/store_list_inventory_response.py">StoreListInventoryResponse</a></code>
+- <code title="get /stores/{id}">client.stores.<a href="./src/waityapi/resources/stores.py">retrieve</a>(id) -> <a href="./src/waityapi/types/store.py">Store</a></code>
+- <code title="get /stores">client.stores.<a href="./src/waityapi/resources/stores.py">list</a>() -> <a href="./src/waityapi/types/store_list_response.py">StoreListResponse</a></code>
+- <code title="get /stores/{id}/queue">client.stores.<a href="./src/waityapi/resources/stores.py">queue</a>(id) -> <a href="./src/waityapi/types/queue_status.py">QueueStatus</a></code>
+- <code title="get /stores/{id}/queue/history">client.stores.<a href="./src/waityapi/resources/stores.py">queue_history</a>(id, \*\*<a href="src/waityapi/types/store_queue_history_params.py">params</a>) -> <a href="./src/waityapi/types/queue_history.py">QueueHistory</a></code>
+- <code title="get /stores/{id}/wait-time">client.stores.<a href="./src/waityapi/resources/stores.py">wait_time</a>(id) -> <a href="./src/waityapi/types/wait_time.py">WaitTime</a></code>
 
-## Orders
-
-Methods:
-
-- <code title="post /store/order">client.store.orders.<a href="./src/waityapi/resources/store/orders.py">create</a>(\*\*<a href="src/waityapi/types/store/order_create_params.py">params</a>) -> <a href="./src/waityapi/types/shared/order.py">Order</a></code>
-- <code title="get /store/order/{orderId}">client.store.orders.<a href="./src/waityapi/resources/store/orders.py">retrieve</a>(order_id) -> <a href="./src/waityapi/types/shared/order.py">Order</a></code>
-- <code title="delete /store/order/{orderId}">client.store.orders.<a href="./src/waityapi/resources/store/orders.py">delete</a>(order_id) -> None</code>
-
-# Users
+# APIKeys
 
 Types:
 
 ```python
-from waityapi.types import User, UserLoginResponse
+from waityapi.types import APIKey, CreateRequest, CreateResponse, ListResponse, UpdateRequest, Usage
 ```
 
 Methods:
 
-- <code title="post /user">client.users.<a href="./src/waityapi/resources/users.py">create</a>(\*\*<a href="src/waityapi/types/user_create_params.py">params</a>) -> <a href="./src/waityapi/types/user.py">User</a></code>
-- <code title="get /user/{username}">client.users.<a href="./src/waityapi/resources/users.py">retrieve</a>(username) -> <a href="./src/waityapi/types/user.py">User</a></code>
-- <code title="put /user/{username}">client.users.<a href="./src/waityapi/resources/users.py">update</a>(existing_username, \*\*<a href="src/waityapi/types/user_update_params.py">params</a>) -> None</code>
-- <code title="delete /user/{username}">client.users.<a href="./src/waityapi/resources/users.py">delete</a>(username) -> None</code>
-- <code title="post /user/createWithList">client.users.<a href="./src/waityapi/resources/users.py">create_with_list</a>(\*\*<a href="src/waityapi/types/user_create_with_list_params.py">params</a>) -> <a href="./src/waityapi/types/user.py">User</a></code>
-- <code title="get /user/login">client.users.<a href="./src/waityapi/resources/users.py">login</a>(\*\*<a href="src/waityapi/types/user_login_params.py">params</a>) -> str</code>
-- <code title="get /user/logout">client.users.<a href="./src/waityapi/resources/users.py">logout</a>() -> None</code>
+- <code title="post /manager/c/{companyId}/api-keys">client.api_keys.<a href="./src/waityapi/resources/api_keys.py">create</a>(company_id, \*\*<a href="src/waityapi/types/api_key_create_params.py">params</a>) -> <a href="./src/waityapi/types/create_response.py">CreateResponse</a></code>
+- <code title="patch /manager/c/{companyId}/api-keys/{keyId}">client.api_keys.<a href="./src/waityapi/resources/api_keys.py">update</a>(key_id, \*, company_id, \*\*<a href="src/waityapi/types/api_key_update_params.py">params</a>) -> <a href="./src/waityapi/types/api_key.py">APIKey</a></code>
+- <code title="get /manager/c/{companyId}/api-keys">client.api_keys.<a href="./src/waityapi/resources/api_keys.py">list</a>(company_id) -> <a href="./src/waityapi/types/list_response.py">ListResponse</a></code>
+- <code title="delete /manager/c/{companyId}/api-keys/{keyId}">client.api_keys.<a href="./src/waityapi/resources/api_keys.py">delete</a>(key_id, \*, company_id) -> None</code>
+- <code title="get /manager/c/{companyId}/api-keys/{keyId}/usage">client.api_keys.<a href="./src/waityapi/resources/api_keys.py">usage</a>(key_id, \*, company_id) -> <a href="./src/waityapi/types/usage.py">Usage</a></code>
