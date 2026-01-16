@@ -6,32 +6,32 @@ from typing_extensions import Literal
 
 import httpx
 
-from ..types import (
+from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
+from ..._utils import maybe_transform, async_maybe_transform
+from ..._compat import cached_property
+from ..._resource import SyncAPIResource, AsyncAPIResource
+from ..._response import (
+    to_raw_response_wrapper,
+    to_streamed_response_wrapper,
+    async_to_raw_response_wrapper,
+    async_to_streamed_response_wrapper,
+)
+from ..._base_client import make_request_options
+from ...types.partner import (
     store_update_queue_params,
     store_queue_history_params,
     store_queue_check_in_params,
     store_queue_check_out_params,
     store_update_wait_time_params,
 )
-from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from .._utils import maybe_transform, async_maybe_transform
-from .._compat import cached_property
-from .._resource import SyncAPIResource, AsyncAPIResource
-from .._response import (
-    to_raw_response_wrapper,
-    to_streamed_response_wrapper,
-    async_to_raw_response_wrapper,
-    async_to_streamed_response_wrapper,
-)
-from ..types.store import Store
-from .._base_client import make_request_options
-from ..types.wait_time import WaitTime
-from ..types.queue_status import QueueStatus
-from ..types.queue_history import QueueHistory
-from ..types.check_in_response import CheckInResponse
-from ..types.check_out_response import CheckOutResponse
-from ..types.store_list_response import StoreListResponse
-from ..types.store_update_queue_response import StoreUpdateQueueResponse
+from ...types.partner.store import Store
+from ...types.partner.wait_time import WaitTime
+from ...types.partner.queue_status import QueueStatus
+from ...types.partner.queue_history import QueueHistory
+from ...types.partner.check_in_response import CheckInResponse
+from ...types.partner.check_out_response import CheckOutResponse
+from ...types.partner.store_list_response import StoreListResponse
+from ...types.partner.store_update_queue_response import StoreUpdateQueueResponse
 
 __all__ = ["StoresResource", "AsyncStoresResource"]
 

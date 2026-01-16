@@ -3,18 +3,18 @@
 from datetime import datetime
 from typing_extensions import Literal
 
-from .._models import BaseModel
+from ..._models import BaseModel
 
-__all__ = ["WaitTime"]
+__all__ = ["StoreUpdateQueueResponse"]
 
 
-class WaitTime(BaseModel):
-    current_wait_minutes: int
-
+class StoreUpdateQueueResponse(BaseModel):
     queue_length: int
 
-    status: Literal["low", "moderate", "busy", "very_busy"]
+    status: Literal["open", "closed"]
 
     store_id: str
 
     updated_at: datetime
+
+    wait_minutes: int
