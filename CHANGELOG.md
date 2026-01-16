@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.3.0 (2026-01-16)
+
+Full Changelog: [v0.2.0...v0.3.0](https://github.com/ImJustRicky/WaitySDK/compare/v0.2.0...v0.3.0)
+
+### Features
+
+* **api:** manual updates ([725be2e](https://github.com/ImJustRicky/WaitySDK/commit/725be2e60b6a754594392388c86def4e4fbf8684))
+
 ## 0.2.0 (2026-01-16)
 
 Full Changelog: [v0.1.0...v0.2.0](https://github.com/ImJustRicky/WaitySDK/compare/v0.1.0...v0.2.0)
