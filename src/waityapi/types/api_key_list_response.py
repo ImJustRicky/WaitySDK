@@ -10,3 +10,5 @@ __all__ = ["APIKeyListResponse"]
 
 class APIKeyListResponse(BaseModel):
     api_keys: List[APIKey]
+
+    total: int

@@ -9,7 +9,16 @@ import pytest
 
 from waityapi import Waity, AsyncWaity
 from tests.utils import assert_matches_type
-from waityapi.types import Store, WaitTime, QueueStatus, QueueHistory, StoreListResponse
+from waityapi.types import (
+    Store,
+    WaitTime,
+    QueueStatus,
+    QueueHistory,
+    CheckInResponse,
+    CheckOutResponse,
+    StoreListResponse,
+    StoreUpdateQueueResponse,
+)
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -131,6 +140,110 @@ class TestStores:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
+    def test_method_queue_check_in(self, client: Waity) -> None:
+        store = client.stores.queue_check_in(
+            id="589616e0-2a71-4866-9736-78fdf0d64d1d",
+        )
+        assert_matches_type(CheckInResponse, store, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_queue_check_in_with_all_params(self, client: Waity) -> None:
+        store = client.stores.queue_check_in(
+            id="589616e0-2a71-4866-9736-78fdf0d64d1d",
+            name="name",
+            party_size=1,
+            phone="phone",
+        )
+        assert_matches_type(CheckInResponse, store, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_raw_response_queue_check_in(self, client: Waity) -> None:
+        response = client.stores.with_raw_response.queue_check_in(
+            id="589616e0-2a71-4866-9736-78fdf0d64d1d",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        store = response.parse()
+        assert_matches_type(CheckInResponse, store, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_streaming_response_queue_check_in(self, client: Waity) -> None:
+        with client.stores.with_streaming_response.queue_check_in(
+            id="589616e0-2a71-4866-9736-78fdf0d64d1d",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            store = response.parse()
+            assert_matches_type(CheckInResponse, store, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_path_params_queue_check_in(self, client: Waity) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            client.stores.with_raw_response.queue_check_in(
+                id="",
+            )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_queue_check_out(self, client: Waity) -> None:
+        store = client.stores.queue_check_out(
+            id="589616e0-2a71-4866-9736-78fdf0d64d1d",
+        )
+        assert_matches_type(CheckOutResponse, store, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_queue_check_out_with_all_params(self, client: Waity) -> None:
+        store = client.stores.queue_check_out(
+            id="589616e0-2a71-4866-9736-78fdf0d64d1d",
+            count=1,
+        )
+        assert_matches_type(CheckOutResponse, store, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_raw_response_queue_check_out(self, client: Waity) -> None:
+        response = client.stores.with_raw_response.queue_check_out(
+            id="589616e0-2a71-4866-9736-78fdf0d64d1d",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        store = response.parse()
+        assert_matches_type(CheckOutResponse, store, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_streaming_response_queue_check_out(self, client: Waity) -> None:
+        with client.stores.with_streaming_response.queue_check_out(
+            id="589616e0-2a71-4866-9736-78fdf0d64d1d",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            store = response.parse()
+            assert_matches_type(CheckOutResponse, store, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_path_params_queue_check_out(self, client: Waity) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            client.stores.with_raw_response.queue_check_out(
+                id="",
+            )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
     def test_method_queue_history(self, client: Waity) -> None:
         store = client.stores.queue_history(
             id="589616e0-2a71-4866-9736-78fdf0d64d1d",
@@ -177,6 +290,111 @@ class TestStores:
     def test_path_params_queue_history(self, client: Waity) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             client.stores.with_raw_response.queue_history(
+                id="",
+            )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_update_queue(self, client: Waity) -> None:
+        store = client.stores.update_queue(
+            id="589616e0-2a71-4866-9736-78fdf0d64d1d",
+        )
+        assert_matches_type(StoreUpdateQueueResponse, store, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_update_queue_with_all_params(self, client: Waity) -> None:
+        store = client.stores.update_queue(
+            id="589616e0-2a71-4866-9736-78fdf0d64d1d",
+            queue_length=0,
+            status="open",
+            wait_minutes=0,
+        )
+        assert_matches_type(StoreUpdateQueueResponse, store, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_raw_response_update_queue(self, client: Waity) -> None:
+        response = client.stores.with_raw_response.update_queue(
+            id="589616e0-2a71-4866-9736-78fdf0d64d1d",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        store = response.parse()
+        assert_matches_type(StoreUpdateQueueResponse, store, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_streaming_response_update_queue(self, client: Waity) -> None:
+        with client.stores.with_streaming_response.update_queue(
+            id="589616e0-2a71-4866-9736-78fdf0d64d1d",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            store = response.parse()
+            assert_matches_type(StoreUpdateQueueResponse, store, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_path_params_update_queue(self, client: Waity) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            client.stores.with_raw_response.update_queue(
+                id="",
+            )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_update_wait_time(self, client: Waity) -> None:
+        store = client.stores.update_wait_time(
+            id="589616e0-2a71-4866-9736-78fdf0d64d1d",
+        )
+        assert_matches_type(WaitTime, store, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_update_wait_time_with_all_params(self, client: Waity) -> None:
+        store = client.stores.update_wait_time(
+            id="589616e0-2a71-4866-9736-78fdf0d64d1d",
+            queue_length=0,
+            wait_minutes=0,
+        )
+        assert_matches_type(WaitTime, store, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_raw_response_update_wait_time(self, client: Waity) -> None:
+        response = client.stores.with_raw_response.update_wait_time(
+            id="589616e0-2a71-4866-9736-78fdf0d64d1d",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        store = response.parse()
+        assert_matches_type(WaitTime, store, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_streaming_response_update_wait_time(self, client: Waity) -> None:
+        with client.stores.with_streaming_response.update_wait_time(
+            id="589616e0-2a71-4866-9736-78fdf0d64d1d",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            store = response.parse()
+            assert_matches_type(WaitTime, store, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_path_params_update_wait_time(self, client: Waity) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            client.stores.with_raw_response.update_wait_time(
                 id="",
             )
 
@@ -342,6 +560,110 @@ class TestAsyncStores:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
+    async def test_method_queue_check_in(self, async_client: AsyncWaity) -> None:
+        store = await async_client.stores.queue_check_in(
+            id="589616e0-2a71-4866-9736-78fdf0d64d1d",
+        )
+        assert_matches_type(CheckInResponse, store, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_queue_check_in_with_all_params(self, async_client: AsyncWaity) -> None:
+        store = await async_client.stores.queue_check_in(
+            id="589616e0-2a71-4866-9736-78fdf0d64d1d",
+            name="name",
+            party_size=1,
+            phone="phone",
+        )
+        assert_matches_type(CheckInResponse, store, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_raw_response_queue_check_in(self, async_client: AsyncWaity) -> None:
+        response = await async_client.stores.with_raw_response.queue_check_in(
+            id="589616e0-2a71-4866-9736-78fdf0d64d1d",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        store = await response.parse()
+        assert_matches_type(CheckInResponse, store, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_streaming_response_queue_check_in(self, async_client: AsyncWaity) -> None:
+        async with async_client.stores.with_streaming_response.queue_check_in(
+            id="589616e0-2a71-4866-9736-78fdf0d64d1d",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            store = await response.parse()
+            assert_matches_type(CheckInResponse, store, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_path_params_queue_check_in(self, async_client: AsyncWaity) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            await async_client.stores.with_raw_response.queue_check_in(
+                id="",
+            )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_queue_check_out(self, async_client: AsyncWaity) -> None:
+        store = await async_client.stores.queue_check_out(
+            id="589616e0-2a71-4866-9736-78fdf0d64d1d",
+        )
+        assert_matches_type(CheckOutResponse, store, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_queue_check_out_with_all_params(self, async_client: AsyncWaity) -> None:
+        store = await async_client.stores.queue_check_out(
+            id="589616e0-2a71-4866-9736-78fdf0d64d1d",
+            count=1,
+        )
+        assert_matches_type(CheckOutResponse, store, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_raw_response_queue_check_out(self, async_client: AsyncWaity) -> None:
+        response = await async_client.stores.with_raw_response.queue_check_out(
+            id="589616e0-2a71-4866-9736-78fdf0d64d1d",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        store = await response.parse()
+        assert_matches_type(CheckOutResponse, store, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_streaming_response_queue_check_out(self, async_client: AsyncWaity) -> None:
+        async with async_client.stores.with_streaming_response.queue_check_out(
+            id="589616e0-2a71-4866-9736-78fdf0d64d1d",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            store = await response.parse()
+            assert_matches_type(CheckOutResponse, store, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_path_params_queue_check_out(self, async_client: AsyncWaity) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            await async_client.stores.with_raw_response.queue_check_out(
+                id="",
+            )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
     async def test_method_queue_history(self, async_client: AsyncWaity) -> None:
         store = await async_client.stores.queue_history(
             id="589616e0-2a71-4866-9736-78fdf0d64d1d",
@@ -388,6 +710,111 @@ class TestAsyncStores:
     async def test_path_params_queue_history(self, async_client: AsyncWaity) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.stores.with_raw_response.queue_history(
+                id="",
+            )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_update_queue(self, async_client: AsyncWaity) -> None:
+        store = await async_client.stores.update_queue(
+            id="589616e0-2a71-4866-9736-78fdf0d64d1d",
+        )
+        assert_matches_type(StoreUpdateQueueResponse, store, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_update_queue_with_all_params(self, async_client: AsyncWaity) -> None:
+        store = await async_client.stores.update_queue(
+            id="589616e0-2a71-4866-9736-78fdf0d64d1d",
+            queue_length=0,
+            status="open",
+            wait_minutes=0,
+        )
+        assert_matches_type(StoreUpdateQueueResponse, store, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_raw_response_update_queue(self, async_client: AsyncWaity) -> None:
+        response = await async_client.stores.with_raw_response.update_queue(
+            id="589616e0-2a71-4866-9736-78fdf0d64d1d",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        store = await response.parse()
+        assert_matches_type(StoreUpdateQueueResponse, store, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_streaming_response_update_queue(self, async_client: AsyncWaity) -> None:
+        async with async_client.stores.with_streaming_response.update_queue(
+            id="589616e0-2a71-4866-9736-78fdf0d64d1d",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            store = await response.parse()
+            assert_matches_type(StoreUpdateQueueResponse, store, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_path_params_update_queue(self, async_client: AsyncWaity) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            await async_client.stores.with_raw_response.update_queue(
+                id="",
+            )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_update_wait_time(self, async_client: AsyncWaity) -> None:
+        store = await async_client.stores.update_wait_time(
+            id="589616e0-2a71-4866-9736-78fdf0d64d1d",
+        )
+        assert_matches_type(WaitTime, store, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_update_wait_time_with_all_params(self, async_client: AsyncWaity) -> None:
+        store = await async_client.stores.update_wait_time(
+            id="589616e0-2a71-4866-9736-78fdf0d64d1d",
+            queue_length=0,
+            wait_minutes=0,
+        )
+        assert_matches_type(WaitTime, store, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_raw_response_update_wait_time(self, async_client: AsyncWaity) -> None:
+        response = await async_client.stores.with_raw_response.update_wait_time(
+            id="589616e0-2a71-4866-9736-78fdf0d64d1d",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        store = await response.parse()
+        assert_matches_type(WaitTime, store, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_streaming_response_update_wait_time(self, async_client: AsyncWaity) -> None:
+        async with async_client.stores.with_streaming_response.update_wait_time(
+            id="589616e0-2a71-4866-9736-78fdf0d64d1d",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            store = await response.parse()
+            assert_matches_type(WaitTime, store, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_path_params_update_wait_time(self, async_client: AsyncWaity) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            await async_client.stores.with_raw_response.update_wait_time(
                 id="",
             )
 

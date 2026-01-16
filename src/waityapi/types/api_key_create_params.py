@@ -15,13 +15,17 @@ __all__ = ["APIKeyCreateParams"]
 class APIKeyCreateParams(TypedDict, total=False):
     name: Required[str]
 
-    scopes: Required[List[Literal["stores:read", "wait_times:read", "queues:read"]]]
-
     expires_at: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
-    """Optional"""
+    """Optional; null for never expires"""
 
     rate_limit: int
     """Optional; requests per minute"""
+
+    scopes: List[
+        Literal[
+            "stores:read", "stores:write", "wait_times:read", "wait_times:write", "queues:read", "queues:write", "*"
+        ]
+    ]
 
     team_ids: SequenceNotStr[str]
     """Optional; restrict key to specific stores"""
