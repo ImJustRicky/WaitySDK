@@ -29,7 +29,6 @@ class TestAPIKeys:
         api_key = client.api_keys.create(
             company_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             name="name",
-            scopes=["stores:read"],
         )
         assert_matches_type(CreateResponse, api_key, path=["response"])
 
@@ -39,9 +38,9 @@ class TestAPIKeys:
         api_key = client.api_keys.create(
             company_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             name="name",
-            scopes=["stores:read"],
             expires_at=parse_datetime("2019-12-27T18:11:19.117Z"),
             rate_limit=0,
+            scopes=["stores:read"],
             team_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
         )
         assert_matches_type(CreateResponse, api_key, path=["response"])
@@ -52,7 +51,6 @@ class TestAPIKeys:
         response = client.api_keys.with_raw_response.create(
             company_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             name="name",
-            scopes=["stores:read"],
         )
 
         assert response.is_closed is True
@@ -66,7 +64,6 @@ class TestAPIKeys:
         with client.api_keys.with_streaming_response.create(
             company_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             name="name",
-            scopes=["stores:read"],
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -83,7 +80,6 @@ class TestAPIKeys:
             client.api_keys.with_raw_response.create(
                 company_id="",
                 name="name",
-                scopes=["stores:read"],
             )
 
     @pytest.mark.skip(reason="Prism tests are disabled")
@@ -101,9 +97,12 @@ class TestAPIKeys:
         api_key = client.api_keys.update(
             key_id="keyId",
             company_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            expires_at=parse_datetime("2019-12-27T18:11:19.117Z"),
             is_active=True,
             name="name",
             rate_limit=0,
+            scopes=["stores:read"],
+            team_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
         )
         assert_matches_type(APIKey, api_key, path=["response"])
 
@@ -308,7 +307,6 @@ class TestAsyncAPIKeys:
         api_key = await async_client.api_keys.create(
             company_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             name="name",
-            scopes=["stores:read"],
         )
         assert_matches_type(CreateResponse, api_key, path=["response"])
 
@@ -318,9 +316,9 @@ class TestAsyncAPIKeys:
         api_key = await async_client.api_keys.create(
             company_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             name="name",
-            scopes=["stores:read"],
             expires_at=parse_datetime("2019-12-27T18:11:19.117Z"),
             rate_limit=0,
+            scopes=["stores:read"],
             team_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
         )
         assert_matches_type(CreateResponse, api_key, path=["response"])
@@ -331,7 +329,6 @@ class TestAsyncAPIKeys:
         response = await async_client.api_keys.with_raw_response.create(
             company_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             name="name",
-            scopes=["stores:read"],
         )
 
         assert response.is_closed is True
@@ -345,7 +342,6 @@ class TestAsyncAPIKeys:
         async with async_client.api_keys.with_streaming_response.create(
             company_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             name="name",
-            scopes=["stores:read"],
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -362,7 +358,6 @@ class TestAsyncAPIKeys:
             await async_client.api_keys.with_raw_response.create(
                 company_id="",
                 name="name",
-                scopes=["stores:read"],
             )
 
     @pytest.mark.skip(reason="Prism tests are disabled")
@@ -380,9 +375,12 @@ class TestAsyncAPIKeys:
         api_key = await async_client.api_keys.update(
             key_id="keyId",
             company_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            expires_at=parse_datetime("2019-12-27T18:11:19.117Z"),
             is_active=True,
             name="name",
             rate_limit=0,
+            scopes=["stores:read"],
+            team_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
         )
         assert_matches_type(APIKey, api_key, path=["response"])
 
