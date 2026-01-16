@@ -53,9 +53,14 @@ class APIKeysResource(SyncAPIResource):
         company_id: str,
         *,
         name: str,
-        scopes: List[Literal["stores:read", "wait_times:read", "queues:read"]],
         expires_at: Union[str, datetime] | Omit = omit,
         rate_limit: int | Omit = omit,
+        scopes: List[
+            Literal[
+                "stores:read", "stores:write", "wait_times:read", "wait_times:write", "queues:read", "queues:write", "*"
+            ]
+        ]
+        | Omit = omit,
         team_ids: SequenceNotStr[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -68,7 +73,7 @@ class APIKeysResource(SyncAPIResource):
         Creates an API key for a company.
 
         Args:
-          expires_at: Optional
+          expires_at: Optional; null for never expires
 
           rate_limit: Optional; requests per minute
 
@@ -89,9 +94,9 @@ class APIKeysResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "name": name,
-                    "scopes": scopes,
                     "expires_at": expires_at,
                     "rate_limit": rate_limit,
+                    "scopes": scopes,
                     "team_ids": team_ids,
                 },
                 api_key_create_params.APIKeyCreateParams,
@@ -107,9 +112,17 @@ class APIKeysResource(SyncAPIResource):
         key_id: str,
         *,
         company_id: str,
+        expires_at: Union[str, datetime, None] | Omit = omit,
         is_active: bool | Omit = omit,
         name: str | Omit = omit,
         rate_limit: int | Omit = omit,
+        scopes: List[
+            Literal[
+                "stores:read", "stores:write", "wait_times:read", "wait_times:write", "queues:read", "queues:write", "*"
+            ]
+        ]
+        | Omit = omit,
+        team_ids: SequenceNotStr[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -121,6 +134,10 @@ class APIKeysResource(SyncAPIResource):
         Updates an API key (e.g., rename, disable, rate limit).
 
         Args:
+          expires_at: Null to set never expires
+
+          is_active: Set to false to pause the key
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -137,9 +154,12 @@ class APIKeysResource(SyncAPIResource):
             f"/manager/c/{company_id}/api-keys/{key_id}",
             body=maybe_transform(
                 {
+                    "expires_at": expires_at,
                     "is_active": is_active,
                     "name": name,
                     "rate_limit": rate_limit,
+                    "scopes": scopes,
+                    "team_ids": team_ids,
                 },
                 api_key_update_params.APIKeyUpdateParams,
             ),
@@ -281,9 +301,14 @@ class AsyncAPIKeysResource(AsyncAPIResource):
         company_id: str,
         *,
         name: str,
-        scopes: List[Literal["stores:read", "wait_times:read", "queues:read"]],
         expires_at: Union[str, datetime] | Omit = omit,
         rate_limit: int | Omit = omit,
+        scopes: List[
+            Literal[
+                "stores:read", "stores:write", "wait_times:read", "wait_times:write", "queues:read", "queues:write", "*"
+            ]
+        ]
+        | Omit = omit,
         team_ids: SequenceNotStr[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -296,7 +321,7 @@ class AsyncAPIKeysResource(AsyncAPIResource):
         Creates an API key for a company.
 
         Args:
-          expires_at: Optional
+          expires_at: Optional; null for never expires
 
           rate_limit: Optional; requests per minute
 
@@ -317,9 +342,9 @@ class AsyncAPIKeysResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "name": name,
-                    "scopes": scopes,
                     "expires_at": expires_at,
                     "rate_limit": rate_limit,
+                    "scopes": scopes,
                     "team_ids": team_ids,
                 },
                 api_key_create_params.APIKeyCreateParams,
@@ -335,9 +360,17 @@ class AsyncAPIKeysResource(AsyncAPIResource):
         key_id: str,
         *,
         company_id: str,
+        expires_at: Union[str, datetime, None] | Omit = omit,
         is_active: bool | Omit = omit,
         name: str | Omit = omit,
         rate_limit: int | Omit = omit,
+        scopes: List[
+            Literal[
+                "stores:read", "stores:write", "wait_times:read", "wait_times:write", "queues:read", "queues:write", "*"
+            ]
+        ]
+        | Omit = omit,
+        team_ids: SequenceNotStr[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -349,6 +382,10 @@ class AsyncAPIKeysResource(AsyncAPIResource):
         Updates an API key (e.g., rename, disable, rate limit).
 
         Args:
+          expires_at: Null to set never expires
+
+          is_active: Set to false to pause the key
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -365,9 +402,12 @@ class AsyncAPIKeysResource(AsyncAPIResource):
             f"/manager/c/{company_id}/api-keys/{key_id}",
             body=await async_maybe_transform(
                 {
+                    "expires_at": expires_at,
                     "is_active": is_active,
                     "name": name,
                     "rate_limit": rate_limit,
+                    "scopes": scopes,
+                    "team_ids": team_ids,
                 },
                 api_key_update_params.APIKeyUpdateParams,
             ),
