@@ -31,10 +31,9 @@ from ._base_client import (
 )
 
 if TYPE_CHECKING:
-    from .resources import health, stores, api_keys
+    from .resources import health, partner
     from .resources.health import HealthResource, AsyncHealthResource
-    from .resources.stores import StoresResource, AsyncStoresResource
-    from .resources.api_keys import APIKeysResource, AsyncAPIKeysResource
+    from .resources.partner.partner import PartnerResource, AsyncPartnerResource
 
 __all__ = ["Timeout", "Transport", "ProxiesTypes", "RequestOptions", "Waity", "AsyncWaity", "Client", "AsyncClient"]
 
@@ -101,16 +100,10 @@ class Waity(SyncAPIClient):
         return HealthResource(self)
 
     @cached_property
-    def stores(self) -> StoresResource:
-        from .resources.stores import StoresResource
+    def partner(self) -> PartnerResource:
+        from .resources.partner import PartnerResource
 
-        return StoresResource(self)
-
-    @cached_property
-    def api_keys(self) -> APIKeysResource:
-        from .resources.api_keys import APIKeysResource
-
-        return APIKeysResource(self)
+        return PartnerResource(self)
 
     @cached_property
     def with_raw_response(self) -> WaityWithRawResponse:
@@ -287,16 +280,10 @@ class AsyncWaity(AsyncAPIClient):
         return AsyncHealthResource(self)
 
     @cached_property
-    def stores(self) -> AsyncStoresResource:
-        from .resources.stores import AsyncStoresResource
+    def partner(self) -> AsyncPartnerResource:
+        from .resources.partner import AsyncPartnerResource
 
-        return AsyncStoresResource(self)
-
-    @cached_property
-    def api_keys(self) -> AsyncAPIKeysResource:
-        from .resources.api_keys import AsyncAPIKeysResource
-
-        return AsyncAPIKeysResource(self)
+        return AsyncPartnerResource(self)
 
     @cached_property
     def with_raw_response(self) -> AsyncWaityWithRawResponse:
@@ -424,16 +411,10 @@ class WaityWithRawResponse:
         return HealthResourceWithRawResponse(self._client.health)
 
     @cached_property
-    def stores(self) -> stores.StoresResourceWithRawResponse:
-        from .resources.stores import StoresResourceWithRawResponse
+    def partner(self) -> partner.PartnerResourceWithRawResponse:
+        from .resources.partner import PartnerResourceWithRawResponse
 
-        return StoresResourceWithRawResponse(self._client.stores)
-
-    @cached_property
-    def api_keys(self) -> api_keys.APIKeysResourceWithRawResponse:
-        from .resources.api_keys import APIKeysResourceWithRawResponse
-
-        return APIKeysResourceWithRawResponse(self._client.api_keys)
+        return PartnerResourceWithRawResponse(self._client.partner)
 
 
 class AsyncWaityWithRawResponse:
@@ -449,16 +430,10 @@ class AsyncWaityWithRawResponse:
         return AsyncHealthResourceWithRawResponse(self._client.health)
 
     @cached_property
-    def stores(self) -> stores.AsyncStoresResourceWithRawResponse:
-        from .resources.stores import AsyncStoresResourceWithRawResponse
+    def partner(self) -> partner.AsyncPartnerResourceWithRawResponse:
+        from .resources.partner import AsyncPartnerResourceWithRawResponse
 
-        return AsyncStoresResourceWithRawResponse(self._client.stores)
-
-    @cached_property
-    def api_keys(self) -> api_keys.AsyncAPIKeysResourceWithRawResponse:
-        from .resources.api_keys import AsyncAPIKeysResourceWithRawResponse
-
-        return AsyncAPIKeysResourceWithRawResponse(self._client.api_keys)
+        return AsyncPartnerResourceWithRawResponse(self._client.partner)
 
 
 class WaityWithStreamedResponse:
@@ -474,16 +449,10 @@ class WaityWithStreamedResponse:
         return HealthResourceWithStreamingResponse(self._client.health)
 
     @cached_property
-    def stores(self) -> stores.StoresResourceWithStreamingResponse:
-        from .resources.stores import StoresResourceWithStreamingResponse
+    def partner(self) -> partner.PartnerResourceWithStreamingResponse:
+        from .resources.partner import PartnerResourceWithStreamingResponse
 
-        return StoresResourceWithStreamingResponse(self._client.stores)
-
-    @cached_property
-    def api_keys(self) -> api_keys.APIKeysResourceWithStreamingResponse:
-        from .resources.api_keys import APIKeysResourceWithStreamingResponse
-
-        return APIKeysResourceWithStreamingResponse(self._client.api_keys)
+        return PartnerResourceWithStreamingResponse(self._client.partner)
 
 
 class AsyncWaityWithStreamedResponse:
@@ -499,16 +468,10 @@ class AsyncWaityWithStreamedResponse:
         return AsyncHealthResourceWithStreamingResponse(self._client.health)
 
     @cached_property
-    def stores(self) -> stores.AsyncStoresResourceWithStreamingResponse:
-        from .resources.stores import AsyncStoresResourceWithStreamingResponse
+    def partner(self) -> partner.AsyncPartnerResourceWithStreamingResponse:
+        from .resources.partner import AsyncPartnerResourceWithStreamingResponse
 
-        return AsyncStoresResourceWithStreamingResponse(self._client.stores)
-
-    @cached_property
-    def api_keys(self) -> api_keys.AsyncAPIKeysResourceWithStreamingResponse:
-        from .resources.api_keys import AsyncAPIKeysResourceWithStreamingResponse
-
-        return AsyncAPIKeysResourceWithStreamingResponse(self._client.api_keys)
+        return AsyncPartnerResourceWithStreamingResponse(self._client.partner)
 
 
 Client = Waity

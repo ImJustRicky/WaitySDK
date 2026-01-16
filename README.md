@@ -41,7 +41,7 @@ client = Waity(
     api_key=os.environ.get("WAITY_API_KEY"),  # This is the default and can be omitted
 )
 
-wait_time = client.stores.wait_time(
+wait_time = client.partner.stores.wait_time(
     "589616e0-2a71-4866-9736-78fdf0d64d1d",
 )
 print(wait_time.store_id)
@@ -67,7 +67,7 @@ client = AsyncWaity(
 
 
 async def main() -> None:
-    wait_time = await client.stores.wait_time(
+    wait_time = await client.partner.stores.wait_time(
         "589616e0-2a71-4866-9736-78fdf0d64d1d",
     )
     print(wait_time.store_id)
@@ -103,7 +103,7 @@ async def main() -> None:
         api_key=os.environ.get("WAITY_API_KEY"),  # This is the default and can be omitted
         http_client=DefaultAioHttpClient(),
     ) as client:
-        wait_time = await client.stores.wait_time(
+        wait_time = await client.partner.stores.wait_time(
             "589616e0-2a71-4866-9736-78fdf0d64d1d",
         )
         print(wait_time.store_id)
@@ -137,7 +137,7 @@ from waityapi import Waity
 client = Waity()
 
 try:
-    client.stores.list()
+    client.partner.stores.list()
 except waityapi.APIConnectionError as e:
     print("The server could not be reached")
     print(e.__cause__)  # an underlying Exception, likely raised within httpx.
@@ -180,7 +180,7 @@ client = Waity(
 )
 
 # Or, configure per-request:
-client.with_options(max_retries=5).stores.list()
+client.with_options(max_retries=5).partner.stores.list()
 ```
 
 ### Timeouts
@@ -203,7 +203,7 @@ client = Waity(
 )
 
 # Override per-request:
-client.with_options(timeout=5.0).stores.list()
+client.with_options(timeout=5.0).partner.stores.list()
 ```
 
 On timeout, an `APITimeoutError` is thrown.
@@ -244,10 +244,10 @@ The "raw" Response object can be accessed by prefixing `.with_raw_response.` to 
 from waityapi import Waity
 
 client = Waity()
-response = client.stores.with_raw_response.list()
+response = client.partner.stores.with_raw_response.list()
 print(response.headers.get('X-My-Header'))
 
-store = response.parse()  # get the object that `stores.list()` would have returned
+store = response.parse()  # get the object that `partner.stores.list()` would have returned
 print(store.stores)
 ```
 
@@ -262,7 +262,7 @@ The above interface eagerly reads the full response body when you make the reque
 To stream the response body, use `.with_streaming_response` instead, which requires a context manager and only reads the response body once you call `.read()`, `.text()`, `.json()`, `.iter_bytes()`, `.iter_text()`, `.iter_lines()` or `.parse()`. In the async client, these are async methods.
 
 ```python
-with client.stores.with_streaming_response.list() as response:
+with client.partner.stores.with_streaming_response.list() as response:
     print(response.headers.get("X-My-Header"))
 
     for line in response.iter_lines():
