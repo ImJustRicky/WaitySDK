@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.3.1 (2026-01-17)
+
+Full Changelog: [v0.3.0...v0.3.1](https://github.com/ImJustRicky/WaitySDK/compare/v0.3.0...v0.3.1)
+
+### Chores
+
+* **internal:** update `actions/checkout` version ([6a51ffe](https://github.com/ImJustRicky/WaitySDK/commit/6a51ffe287a79dbd4f156dff84bb3157be09569e))
+
 ## 0.3.0 (2026-01-16)
 
 Full Changelog: [v0.2.0...v0.3.0](https://github.com/ImJustRicky/WaitySDK/compare/v0.2.0...v0.3.0)
